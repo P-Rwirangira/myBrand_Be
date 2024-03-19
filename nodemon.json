@@ -1,5 +1,5 @@
 {
     "ex":"ts,js,ymal",  
-    "exec":"ts-node ./src/server.ts"
+    "exec":"node ./dist/server.js"
 
 }

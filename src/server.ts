@@ -16,11 +16,7 @@ const MONGO_URL = `mongodb+srv://Geek:Database123@cluster0.9m4agr7.mongodb.net/?
 app.use(bodyParser.json());
 
 // Enable CORS
-app.use(cors({
-    origin: '*', 
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], 
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  }));
+app.use(cors());
 
 // swagger
 const swaggerJsDocs = YAML.load('./api.yaml'); 
