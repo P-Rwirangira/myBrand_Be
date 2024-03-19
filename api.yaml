@@ -1,0 +1,647 @@
+swagger: "2.0"
+info:
+  title:  API
+  description: Welcome to the backend of Mybrand.
+  version: 1.0
+  contact:
+    email: rwpatrick001@gmail.com
+
+schemes:
+  - http
+  - https
+
+securityDefinitions:
+  Token:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+
+paths:
+  /blogs:
+    get:
+      tags:
+        - "Blogs"
+      summary: "Get all blogs"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+    post:
+      tags:
+        - "Blogs"
+      summary: "Create a blog"
+      security:
+        - Token: []
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: title
+          in: formData
+          description: "Title of the blog"
+          required: true
+          type: string
+        - name: content
+          in: formData
+          description: "Content of the blog"
+          required: true
+          type: string
+        - name: image
+          in: formData
+          description: "Image of the blog"
+          required: true
+          type: file
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+  /blogs/{id}:
+    get:
+      tags:
+        - "Blogs"
+      summary: "Get one blog"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the blog"
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+    patch:
+      tags:
+        - "Blogs"
+      summary: "Edit a blog"
+      description: "Edit a blog"
+      security:
+        - Token: []
+      consumes:
+        - application/json
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the blog"
+          required: true
+          type: "string"
+        - name: title
+          in: body
+          description: "blog content"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              title:
+                type: "string"
+              content:
+                type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+    delete:
+      tags:
+        - "Blogs"
+      summary: "Delete a blog"
+      description: "Delete a blog"
+      security:
+        - Token: []
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the blog"
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+  /blogs/{id}/comment:
+    post:
+      tags:
+        - "Blogs"
+      summary: "Post a comment"
+      description: "Post a comment"
+      security:
+        - Token: []
+      consumes:
+        application/json
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the blog"
+          required: true
+          type: "string"
+        - name: "comment"
+          schema:
+            type: "object"
+            properties:
+              email:
+                type: "string"
+              comment:
+                type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+  /blogs/{id}/like:
+    post:
+      tags:
+        - "Blogs"
+      summary: "Like a blog"
+      description: "Add a like to a blog"
+      security:
+        - Token: []
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the blog"
+          required: true
+          schema:
+            type: string
+        - name: "like"
+          in: "body"
+          description: "Details of the like"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              email:
+                type: "string"
+                format: "email"
+                description: "Email of the user liking the blog"
+              postId:
+                type: "string"
+                description: "ID of the post being liked"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+          examples:
+            success:
+              status: "success"
+              data: []
+        400:
+          description: "Bad request, invalid parameters"
+
+  /messages:
+    post:
+      tags:
+        - "Messages"
+      summary: "Post/Send a message"
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: message
+          description: "Message object"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              title:
+                type: "string"
+              email:
+                type: "string"
+              message:
+                type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+    get:
+      tags:
+        - "Messages"
+      summary: "Get all messages"
+      security:
+        - Token: []
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+  /messages/{id}:
+    get:
+      tags:
+        - "Messages"
+      summary: "Get message by id"
+      security:
+        - Token: []
+      description: "Get message by id"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the message"
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+    delete:
+      tags:
+        - "Messages"
+      summary: "Delete a message"
+      description: "Delete a message"
+      security:
+        - Token: []
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the message"
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+  /subs:
+    post:
+      tags:
+        - "SUBS"
+      summary: "subscribe"
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: "email"
+          description: "Message object"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              email:
+                type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+    get:
+      tags:
+        - "SUBS"
+      summary: "Get all subs"
+      security:
+        - Token: []
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+  /subs/{id}:
+    get:
+      tags:
+        - "SUBS"
+      summary: "Get Subs by id"
+      security:
+        - Token: []
+      description: "Get subs by id"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the subscriber"
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+    delete:
+      tags:
+        - "SUBS"
+      summary: "Delete a subscriber"
+      description: "Delete a subscriber"
+      security:
+        - Token: []
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the subs"
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+  /users/:
+    get:
+      tags:
+        - "Users"
+      summary: "Get all users"
+      security:
+        - Token: []
+      description: "Get all users"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+  /users/{id}:
+    get:
+      tags:
+        - "Users"
+      summary: "Get user by id"
+      security:
+        - Token: []
+      description: "Get user by id"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the user"
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+    delete:
+      tags:
+        - "Users"
+      summary: "Delete user by email"
+      security:
+        - Token: []
+      description: "Delete"
+      parameters:
+        - name: "email"
+          in: "path"
+          description: "Email of the user"
+          required: true
+          type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+  /signup:
+    post:
+      tags:
+        - "Account"
+      summary: "User SIGN UP"
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          description: "User object"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              username:
+                type: "string"
+              email:
+                type: "string"
+              password:
+                type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []
+
+  /login:
+    post:
+      tags:
+        - "Account"
+      summary: "User Login"
+      consumes:
+        - application/json
+      parameters:
+        - in: body 
+          name: user
+          description: "User object"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              username:
+                type: "string"
+              password:
+                type: "string"
+      responses:
+        '200':
+          description: "OK"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+              data:
+                type: "array"
+                items: {}
+          examples:
+            success:
+              status: "success"
+              data: []

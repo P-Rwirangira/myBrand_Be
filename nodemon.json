@@ -1,0 +1,5 @@
+{
+    "ex":"ts,js,ymal",  
+    "exec":"ts-node ./src/server.ts"
+
+}
