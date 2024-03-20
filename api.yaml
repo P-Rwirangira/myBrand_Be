@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   title:  API
-  description: Welcome to the backend of Mybrand.
+  description: Welcome to the backend of Portfolio.
   version: 1.0
   contact:
     email: rwpatrick001@gmail.com
