@@ -16,7 +16,11 @@ const MONGO_URL = `mongodb+srv://Geek:Database123@cluster0.9m4agr7.mongodb.net/P
 app.use(bodyParser.json());
 
 // Enable CORS
-app.use(cors());
+app.use(cors({
+    origin: '*', 
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], 
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }));
 
 // swagger
 const swaggerJsDocs = YAML.load('./api.yaml'); 
@@ -38,7 +42,7 @@ mongoose.connect(MONGO_URL)
     .then(() => {
         console.log('MongoDB Connected');
         app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
+            console.log(`Server is running on port http://localhost:${PORT}`);
         });
     })
     .catch((err) => {

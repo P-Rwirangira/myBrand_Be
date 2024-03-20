@@ -589,8 +589,6 @@ paths:
           schema:
             type: "object"
             properties:
-              username:
-                type: "string"
               email:
                 type: "string"
               password:
@@ -626,8 +624,6 @@ paths:
           schema:
             type: "object"
             properties:
-              username:
-                type: "string"
               password:
                 type: "string"
       responses:

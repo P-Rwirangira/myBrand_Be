@@ -17,7 +17,11 @@ const PORT = process.env.PORT || 7000;
 const MONGO_URL = `mongodb+srv://Geek:Database123@cluster0.9m4agr7.mongodb.net/PortfolioDb`;
 app.use(body_parser_1.default.json());
 // Enable CORS
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 // swagger
 const swaggerJsDocs = yamljs_1.default.load('./api.yaml');
 app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerJsDocs));
@@ -35,7 +39,7 @@ mongoose_1.default.connect(MONGO_URL)
     .then(() => {
     console.log('MongoDB Connected');
     app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
+        console.log(`Server is running on port http://localhost:${PORT}`);
     });
 })
     .catch((err) => {
