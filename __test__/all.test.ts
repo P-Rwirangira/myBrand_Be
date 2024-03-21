@@ -70,7 +70,6 @@ describe("endpoints", () => {
     const response = await superTest(app)
       .post('/signup')
       .send({
-        username: 'shebelle',
         email:'shebelle@gmail.com',
         password: 'shebelle123',
         role: 'admin'
@@ -86,8 +85,8 @@ describe("endpoints", () => {
     const response = await superTest(app)
       .post('/login')
       .send({
-        username: 'shebelle',
-        password: 'shebelle123',
+        email: 'Spinnal',
+        password: 'Spinnal123',
       });
     token.token = response.body.token;
     expect(response.statusCode).toBe(200);
