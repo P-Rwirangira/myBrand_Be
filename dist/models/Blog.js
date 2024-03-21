@@ -20,6 +20,10 @@ const blogSchema = new Schema({
         type: String,
         required: true
     },
+    subtitle: {
+        type: String,
+        required: true
+    },
     content: {
         type: String,
         required: true
@@ -32,6 +36,17 @@ const blogSchema = new Schema({
     likes: {
         type: Number,
         default: 0
+    },
+    views: {
+        type: Number,
+        default: 0
+    },
+    timecreated: {
+        type: Date,
+        default: function () {
+            const today = new Date();
+            return new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        }
     }
 });
 const Blog = mongoose_1.default.model('Blog', blogSchema);

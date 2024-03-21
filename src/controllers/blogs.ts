@@ -14,7 +14,7 @@ export const createBlog = async (req: Request, res: Response) => {
           image = result ? result.secure_url : null;
         }
   
-        const { title, content } = req.body;
+        const { title,subtitle, content } = req.body;
         const { error } = blogVal.validate(req.body);
         if (error) {
           return res.status(400).send({ error: error.details[0].message });
@@ -22,6 +22,7 @@ export const createBlog = async (req: Request, res: Response) => {
   
         const blog = new Blog({
           title,
+          subtitle,
           content,
           image,
         });

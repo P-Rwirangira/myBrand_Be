@@ -36,15 +36,16 @@ export const getMessageById = async (req: Request, res: Response) => {
 
 export const createMessage = async (req: Request, res: Response) => {
   try {
-    const { title, email, message } = req.body;
+    const {phone,names, email, message } = req.body;
     const { error } = msgVal.validate(req.body);
     if (error) {
       return res.status(400).json({ error: error.details[0].message });
     }
 
     const query = new Message({
-      title,
+      names,
       email,
+      phone,
       message,
     });
     const savedQuery = await query.save();

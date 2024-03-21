@@ -47,14 +47,15 @@ const getMessageById = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.getMessageById = getMessageById;
 const createMessage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { title, email, message } = req.body;
+        const { phone, names, email, message } = req.body;
         const { error } = messages_1.msgVal.validate(req.body);
         if (error) {
             return res.status(400).json({ error: error.details[0].message });
         }
         const query = new Message_1.default({
-            title,
+            names,
             email,
+            phone,
             message,
         });
         const savedQuery = yield query.save();

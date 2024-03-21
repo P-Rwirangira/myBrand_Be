@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const messageSchema = new Schema({
-  title: {
+  names: {
     type: String,
     required: true
   },
@@ -13,7 +13,20 @@ const messageSchema = new Schema({
   },
   message: {
     type: String,
-    required: true
+    required: true,
+    default:"No message yet!"
+  },
+  phone: {
+    type: String,
+    required: true,
+    default:"No phone number yet!"
+  },
+  timecreated:{
+    type:Date,
+    default: function() {
+      const today = new Date();
+      return new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    }
   }
 });
 
