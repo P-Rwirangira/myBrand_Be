@@ -624,6 +624,7 @@ paths:
           schema:
             type: "object"
             properties:
+              email: "string"
               password:
                 type: "string"
       responses:

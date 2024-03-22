@@ -6,11 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginVal = exports.signInVal = void 0;
 const joi_1 = __importDefault(require("joi"));
 exports.signInVal = joi_1.default.object({
-    email: joi_1.default.string().email().required(),
     password: joi_1.default.string().required(),
     role: joi_1.default.string().valid('admin', 'user').optional(),
-}).unknown(false);
+}).unknown(true);
 exports.loginVal = joi_1.default.object({
     email: joi_1.default.string().email(),
     password: joi_1.default.string().required(),
-}).xor('email').required().unknown(false);
+}).xor('email').required().unknown(true);

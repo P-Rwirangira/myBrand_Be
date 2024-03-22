@@ -11,7 +11,7 @@ const jwtSecret = 'Speed';
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const {password, email, role } = req.body;
+    const {phone ,username,password, email, role } = req.body;
 
     const { error } = signInVal.validate(req.body);
     if (error) {
@@ -25,7 +25,7 @@ export const createUser = async (req: Request, res: Response) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new IUser({ password: hashedPassword, email ,role});
+    const newUser = new IUser({ phone,username,password: hashedPassword, email ,role});
     await newUser.save();
 
     const token = jwt.sign({role: newUser.role }, jwtSecret, {
