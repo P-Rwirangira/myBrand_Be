@@ -1,6 +1,6 @@
 import express from 'express';
 import upload from '../middlewares/multer';
-import { addComment, createBlog, deleteBlogById, getAllBlogs, getBlogById, updateBlogById } from '../controllers/blogs';
+import { addComment,viewBlog, createBlog, deleteBlogById, getAllBlogs, getBlogById, updateBlogById } from '../controllers/blogs';
 import { likePost } from '../controllers/liking';
 import { createMessage, deleteMessageById, getAllMessages, getMessageById } from '../controllers/messages';
 import { createUser, deleteUserByEmail, getAllUsers, login } from '../controllers/users';
@@ -18,6 +18,7 @@ router.patch('/blogs/:id',authenticateUser,authorizeAdmin,upload.single("image")
 router.delete('/blogs/:id',authenticateUser,authorizeAdmin, deleteBlogById);
 router.post('/blogs/:id/like',authenticateUser, likePost);
 router.post('/blogs/:id/comment',authenticateUser, addComment);
+router.get('/blogs/:id/view', viewBlog);
 
 
 // messages

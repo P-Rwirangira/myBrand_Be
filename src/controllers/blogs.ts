@@ -4,7 +4,27 @@ import { blogVal } from '../validations/blogs';
 import cloudinary from '../middlewares/cloudinary';
 import { commentVal } from '../validations/comment';
 
-// create
+// View a blog post
+export const viewBlog = async (req: Request, res: Response) => {
+  try {
+    const blogId = req.params.id;
+    const blog = await Blog.findById(blogId);
+
+    if (!blog) {
+      return res.status(404).json({ error: 'Blog post not found' });
+    }
+
+    // Increment views
+    blog.views++;
+    await blog.save();
+
+    res.status(200).json(blog);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to view blog post' });
+  }
+};
+//create the blog 
+
 export const createBlog = async (req: Request, res: Response) => {
     try {
         let image = null;
