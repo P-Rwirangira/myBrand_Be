@@ -20,6 +20,7 @@ router.patch('/blogs/:id', auth_1.authenticateUser, auth_1.authorizeAdmin, multe
 router.delete('/blogs/:id', auth_1.authenticateUser, auth_1.authorizeAdmin, blogs_1.deleteBlogById);
 router.post('/blogs/:id/like', auth_1.authenticateUser, liking_1.likePost);
 router.post('/blogs/:id/comment', auth_1.authenticateUser, blogs_1.addComment);
+router.get('/blogs/:id/view', blogs_1.viewBlog);
 // messages
 router.get('/messages', auth_1.authenticateUser, auth_1.authorizeAdmin, messages_1.getAllMessages);
 router.get('/messages/:id', auth_1.authenticateUser, auth_1.authorizeAdmin, messages_1.getMessageById);

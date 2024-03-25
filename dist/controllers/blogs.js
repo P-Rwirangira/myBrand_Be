@@ -12,12 +12,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addComment = exports.deleteBlogById = exports.updateBlogById = exports.getBlogById = exports.getAllBlogs = exports.createBlog = void 0;
+exports.addComment = exports.deleteBlogById = exports.updateBlogById = exports.getBlogById = exports.getAllBlogs = exports.createBlog = exports.viewBlog = void 0;
 const Blog_1 = __importDefault(require("../models/Blog"));
 const blogs_1 = require("../validations/blogs");
 const cloudinary_1 = __importDefault(require("../middlewares/cloudinary"));
 const comment_1 = require("../validations/comment");
-// create
+// View a blog post
+const viewBlog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const blogId = req.params.id;
+        const blog = yield Blog_1.default.findById(blogId);
+        if (!blog) {
+            return res.status(404).json({ error: 'Blog post not found' });
+        }
+        // Increment views
+        blog.views++;
+        yield blog.save();
+        res.status(200).json(blog);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Failed to view blog post' });
+    }
+});
+exports.viewBlog = viewBlog;
+//create the blog 
 const createBlog = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let image = null;
